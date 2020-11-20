@@ -1,0 +1,7 @@
+[options]
+prefix = /home/manuescude/PAV
+libdir = lib
+buildtype = release
+
+[properties]
+
