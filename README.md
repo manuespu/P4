@@ -47,9 +47,9 @@ ejercicios indicados.
   salida de SPTK (líneas 45 a 47 del script `wav2lp.sh`).
     
      ,,,
-      cmd:
-      /scripts/run_spkid lp
-      fmatrix_show work/lp/BLOCK01/SES017/*.lp | egrep '^\[' | cut -f3,4 > lp_2_3.txt
+       cmd:
+       /scripts/run_spkid lp
+       fmatrix_show work/lp/BLOCK01/SES017/*.lp | egrep '^\[' | cut -f3,4 > lp_2_3.txt
        cp lp_2_3.txt /mnt/c/Users/manue/Desktop         Moure el .txt al directori on tenim representaciones.m
 
        matlab : 
