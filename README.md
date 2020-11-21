@@ -46,16 +46,16 @@ ejercicios indicados.
 - Explique el procedimiento seguido para obtener un fichero de formato *fmatrix* a partir de los ficheros de
   salida de SPTK (líneas 45 a 47 del script `wav2lp.sh`).
     
-    ...
-    cmd:
-    /scripts/run_spkid lp
-    fmatrix_show work/lp/BLOCK01/SES017/*.lp | egrep '^\[' | cut -f3,4 > lp_2_3.txt
-     cp lp_2_3.txt /mnt/c/Users/manue/Desktop         Moure el .txt al directori on tenim representaciones.m
-     
-     matlab : 
-     >>representaciones
-     
-     Repetim per lpcc i mfcc
+     ,,,
+      cmd:
+      /scripts/run_spkid lp
+      fmatrix_show work/lp/BLOCK01/SES017/*.lp | egrep '^\[' | cut -f3,4 > lp_2_3.txt
+       cp lp_2_3.txt /mnt/c/Users/manue/Desktop         Moure el .txt al directori on tenim representaciones.m
+
+       matlab : 
+       >>representaciones
+
+       Repetim per lpcc i mfcc
 
   * ¿Por qué es conveniente usar este formato (u otro parecido)? Tenga en cuenta cuál es el formato de
     entrada y cuál es el de resultado.
