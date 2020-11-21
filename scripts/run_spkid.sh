@@ -6,7 +6,7 @@
 # Antonio Bonafonte, Nov. 2015
 
 ## @file
-# \TODO
+# \HECHO
 # Set the proper value to variables: lists, w, name_exp and db
 # - lists:    directory with the list of signal files
 # - w:        a working directory for temporary files
@@ -26,10 +26,10 @@ if [[ $# < 1 ]]; then
    echo ""
    echo "Where command can be one or more of the following (in this order):"
    echo ""
-   echo "      FEAT: where FEAT is the name of a feature (eg. lp, lpcc or mfcc)."
-   echo "            - A function with the name compute_FEAT() must be defined."
-   echo "            - Initially, only compute_lp() exists and can be used."
-   echo "            - Edit this file to add your own features."
+   echo "     FEAT: where FEAT is the name of a feature (eg. lp, lpcc or mfcc)."
+   echo "           - A function with the name compute_FEAT() must be defined."
+   echo "           - Initially, only compute_lp() exists and can be used."
+   echo "           - Edit this file to add your own features."
    echo ""
    echo "     train: train GMM for speaker recognition and/or verification"
    echo "      test: test GMM in speaker recognition"
@@ -39,14 +39,6 @@ if [[ $# < 1 ]]; then
    echo " verifyerr: count errors of verify"
    echo "finalclass: reserved for final test in the classification task"
    echo "finalverif: reserved for final test in the verification task"
-   echo ""
-   echo "When using $0 without the command FEAT, the feature"
-   echo "name must be defined beforehand."
-   echo ""
-   echo "For instance, in order to train, test and evaluate speaker recognition"
-   echo "using MFCC features, you can execute:"
-   echo ""
-   echo "      FEAT=mfcc $0 train test classerr"
    exit 1
 fi
 
@@ -81,14 +73,28 @@ fi
 # ----------------------------
 
 ## @file
-# \TODO
+# \HECHO
 # Create your own features with the name compute_$FEAT(), where  $FEAT the name of the feature.
 # - Select (or change) different features, options, etc. Make you best choice and try several options.
 
 compute_lp() {
-    for filename in $(cat $lists/class/all.train $lists/class/all.test); do
+    for filename in $(cat lists/class/all.train lists/class/all.test); do
         mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
-        EXEC="wav2lp 8 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
+        EXEC="wav2lp 14 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
+        echo $EXEC && $EXEC || exit 1
+    done
+}
+compute_lpcc() {
+    for filename in $(cat lists/class/all.train lists/class/all.test); do
+        mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
+        EXEC="wav2lpcc 14 14 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
+        echo $EXEC && $EXEC || exit 1
+    done
+}
+compute_mfcc() {
+    for filename in $(cat lists/class/all.train lists/class/all.test); do
+        mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
+        EXEC="wav2mfcc 16 20 8 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
         echo $EXEC && $EXEC || exit 1
     done
 }
@@ -132,15 +138,16 @@ for cmd in $*; do
 
    if [[ $cmd == train ]]; then
        ## @file
-	   # \TODO
+	   # \HECHO
 	   # Select (or change) good parameters for gmm_train
        for dir in $db/BLOCK*/SES* ; do
            name=${dir/*\/}
            echo $name ----
-           gmm_train  -v 1 -T 0.001 -N5 -m 1 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$name.gmm $lists/class/$name.train || exit 1
+           gmm_train  -v 1 -T 0.001 -N15 -m 5 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$name.gmm $lists/class/$name.train || exit 1
            echo
        done
    elif [[ $cmd == test ]]; then
+       find $w/gmm/$FEAT -name '*.gmm' -printf '%P\n' | perl -pe 's/.gmm$//' | sort  > $lists/gmm.list
        (gmm_classify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm $lists/gmm.list  $lists/class/all.test | tee $w/class_${FEAT}_${name_exp}.log) || exit 1
 
    elif [[ $cmd == classerr ]]; then
@@ -163,13 +170,14 @@ for cmd in $*; do
        echo "Implement the trainworld option ..."
    elif [[ $cmd == verify ]]; then
        ## @file
-	   # \TODO 
+	   # \HECHO 
 	   # Implement 'verify' in order to perform speaker verification
 	   #
 	   # - The standard output of gmm_verify must be redirected to file $w/verif_${FEAT}_${name_exp}.log.
 	   #   For instance:
 	   #   * <code> gmm_verify ... > $w/verif_${FEAT}_${name_exp}.log </code>
 	   #   * <code> gmm_verify ... | tee $w/verif_${FEAT}_${name_exp}.log </code>
+        gmm_verify -d $w/mcp -e mcp -D $w/gmm/mcp -E gmm $w/lists/gmm.list $w/list_verify/all.test $w/list_verify/all.test.candidates | tee $w
        echo "Implement the verify option ..."
 
    elif [[ $cmd == verif_err ]]; then
