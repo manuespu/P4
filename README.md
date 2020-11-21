@@ -32,6 +32,16 @@ ejercicios indicados.
 - Analice el script `wav2lp.sh` y explique la misión de los distintos comandos involucrados en el *pipeline*
   principal (`sox`, `$X2X`, `$FRAME`, `$WINDOW` y `$LPC`). Explique el significado de cada una de las 
   opciones empleadas y de sus valores.
+  sox: Transforma el fichero de entrada WAVE a formato raw (sin cabecera).
+
+    x2x: Programa sptk que permite la conversión entre distintos formatos de datos, convierte la señal de entrada a reales con coma flotante de 32 bits sin cabecera.
+
+    FRAME: Divide la señal de entrada en tramas de 240 muestras (30ms) con desplazamientos de 80 muestras (10ms).
+
+    WINDOW: Ventana de Blackman por defecto. Multiplica cada trama.
+
+    LPC: Calcula los "lpc_order" (8 en nuestro caso) primeros coeficientes de predicción linial de todas las tramas.
+
 
 - Explique el procedimiento seguido para obtener un fichero de formato *fmatrix* a partir de los ficheros de
   salida de SPTK (líneas 45 a 47 del script `wav2lp.sh`).
