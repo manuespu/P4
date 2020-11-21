@@ -32,18 +32,36 @@ ejercicios indicados.
 - Analice el script `wav2lp.sh` y explique la misión de los distintos comandos involucrados en el *pipeline*
   principal (`sox`, `$X2X`, `$FRAME`, `$WINDOW` y `$LPC`). Explique el significado de cada una de las 
   opciones empleadas y de sus valores.
+  sox: Transforma el fichero de entrada WAVE a formato raw (sin cabecera).
+
+    x2x: Programa sptk que permite la conversión entre distintos formatos de datos, convierte la señal de entrada a reales con coma flotante de 32 bits sin cabecera.
+
+    FRAME: Divide la señal de entrada en tramas de 240 muestras (30ms) con desplazamientos de 80 muestras (10ms).
+
+    WINDOW: Ventana de Blackman por defecto. Multiplica cada trama.
+
+    LPC: Calcula los "lpc_order" (8 en nuestro caso) primeros coeficientes de predicción linial de todas las tramas.
+
 
 - Explique el procedimiento seguido para obtener un fichero de formato *fmatrix* a partir de los ficheros de
   salida de SPTK (líneas 45 a 47 del script `wav2lp.sh`).
 
   * ¿Por qué es conveniente usar este formato (u otro parecido)? Tenga en cuenta cuál es el formato de
     entrada y cuál es el de resultado.
+    
+      - Permite tener los datos más ordenados y que sea más facil por tanto acceder a ellos.
 
 - Escriba el *pipeline* principal usado para calcular los coeficientes cepstrales de predicción lineal
   (LPCC) en su fichero <code>scripts/wav2lpcc.sh</code>:
+     ```
+      sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WINDOW -l 240 -L 240 |
+      $LPC -l 240 -m $lpc_order | $LPCC -m $lpc_order -M $cepstrum_order > $base.lpcc
 
 - Escriba el *pipeline* principal usado para calcular los coeficientes cepstrales en escala Mel (MFCC) en su
   fichero <code>scripts/wav2mfcc.sh</code>:
+     ```
+        sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WINDOW -l 240 -L 240 |
+        $MFCC -l 240 -m $mfcc_order -n $num_filters -s $freq > $base.mfcc
 
 ### Extracción de características.
 
