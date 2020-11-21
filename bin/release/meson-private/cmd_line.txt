@@ -1,0 +1,7 @@
+[options]
+prefix = /root/PAV
+libdir = lib
+buildtype = release
+
+[properties]
+
