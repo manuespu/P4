@@ -211,7 +211,7 @@ namespace upc {
 	  //
     new_prob = em_expectation(data, weights);
     em_maximization(data, weights);
-
+    /// \DONE
       // Update old_prob, new_prob and inc_prob in order to stop the loop if logprob does not
       // increase more than inc_threshold.
       inc_prob = new_prob - old_prob;
