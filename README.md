@@ -79,24 +79,22 @@ ejercicios indicados.
   para todas las señales de un locutor.
 
 <img src="lp_2_3.png">
-
 <img src="lpcc_2_3.png">
-
 <img src="mfcc_2_3.png">
 
-  
   + Indique **todas** las órdenes necesarias para obtener las gráficas a partir de las señales 
     parametrizadas.
-     ,,,
-       cmd:
-       /scripts/run_spkid lp
-       fmatrix_show work/lp/BLOCK01/SES017/*.lp | egrep '^\[' | cut -f3,4 >>
-       cp lp_2_3.txt /mnt/c/Users/manue/Desktop         Moure el .txt al di>
+    
+      ```
+         cmd:
+         /scripts/run_spkid lp
+         fmatrix_show work/lp/BLOCK01/SES017/*.lp | egrep '^\[' | cut -f3,4 >>
+         cp lp_2_3.txt /mnt/c/Users/manue/Desktop         Moure el .txt al di>
 
-       matlab :
-       >>representaciones
+         matlab :
+         >>representaciones
 
-       Repetim per lpcc i mfcc
+         Repetim per lpcc i mfcc
 
   + ¿Cuál de ellas le parece que contiene más información?
 
