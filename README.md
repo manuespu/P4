@@ -12,7 +12,6 @@ con la base de datos oral que se utilizará en la parte experimental de la prác
 
 Como entrega deberá realizar un *pull request* con el contenido de su copia del repositorio. Recuerde
 que los ficheros entregados deberán estar en condiciones de ser ejecutados con sólo ejecutar:
-
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.sh
   make release
   run_spkid mfcc train test classerr verify verifyerr
@@ -46,7 +45,7 @@ ejercicios indicados.
 - Explique el procedimiento seguido para obtener un fichero de formato *fmatrix* a partir de los ficheros de
   salida de SPTK (líneas 45 a 47 del script `wav2lp.sh`).
     
-      ,,,
+     ,,,
        cmd:
        /scripts/run_spkid lp
        fmatrix_show work/lp/BLOCK01/SES017/*.lp | egrep '^\[' | cut -f3,4 > lp_2_3.txt
@@ -78,10 +77,30 @@ ejercicios indicados.
 
 - Inserte una imagen mostrando la dependencia entre los coeficientes 2 y 3 de las tres parametrizaciones
   para todas las señales de un locutor.
+
+<img src="lp_2_3.png">
+
+<img src="lpcc_2_3.png">
+
+<img src="mfcc_2_3.png">
+
   
   + Indique **todas** las órdenes necesarias para obtener las gráficas a partir de las señales 
     parametrizadas.
+     ,,,
+       cmd:
+       /scripts/run_spkid lp
+       fmatrix_show work/lp/BLOCK01/SES017/*.lp | egrep '^\[' | cut -f3,4 >>
+       cp lp_2_3.txt /mnt/c/Users/manue/Desktop         Moure el .txt al di>
+
+       matlab :
+       >>representaciones
+
+       Repetim per lpcc i mfcc
+
   + ¿Cuál de ellas le parece que contiene más información?
+
+La lpcc contiene más información
 
 - Usando el programa <code>pearson</code>, obtenga los coeficientes de correlación normalizada entre los
   parámetros 2 y 3 para un locutor, y rellene la tabla siguiente con los valores obtenidos.
