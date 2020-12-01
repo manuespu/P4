@@ -16,6 +16,7 @@ lists=lists
 w=work
 name_exp=one
 db=spk_8mu/speecon
+final=spk_8mu/sr_test
 world=users
 # ------------------------
 # Usage
@@ -92,7 +93,9 @@ compute_lpcc() {
     done
 }
 compute_mfcc() {
-    for filename in $(cat lists/class/all.train lists/class/all.test); do
+    db=$1
+    shift
+    for filename in $(cat $*); do
         mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
         EXEC="wav2mfcc 16 20 8 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
         echo $EXEC && $EXEC || exit 1
@@ -151,7 +154,7 @@ for cmd in $*; do
 	   # Implement 'trainworld' in order to get a Universal Background Model for speaker verification
 	   #
 	   # - The name of the world model will be used by gmm_verify in the 'verify' command below.
-       gmm_train  -v 1 -T 0.0005 -N40 -m 100 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$world.gmm $lists/verif/$world.train || exit 1
+       gmm_train  -v 1 -T 0.0005 -N40 -m 100 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$world.gmm $lists/verif/users_and_others.train || exit 1
    elif [[ $cmd == verify ]]; then
        ## @file
 	   # \HECHO 
@@ -174,11 +177,13 @@ for cmd in $*; do
 
    elif [[ $cmd == finalclass ]]; then
        ## @file
-	   # \TODO
+	   # \HECHO
 	   # Perform the final test on the speaker classification of the files in spk_ima/sr_test/spk_cls.
 	   # The list of users is the same as for the classification task. The list of files to be
 	   # recognized is lists/final/class.test
-       echo "To be implemented ..."
+    compute_$FEAT $final $lists/final/class.test
+       (gmm_classify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm $lists/gmm.list  $lists/class/all.test | tee $w/class_${FEAT}_${name_exp}.log) || exit 1
+
    
    elif [[ $cmd == finalverif ]]; then
        ## @file
@@ -193,7 +198,7 @@ for cmd in $*; do
    # of a feature and a compute_$FEAT function exists.
    elif [[ "$(type -t compute_$cmd)" = function ]]; then
 	   FEAT=$cmd
-       compute_$FEAT       
+       compute_$FEAT $db $lists/class/all.train $lists/class/all.test    
    else
        echo "undefined command $cmd" && exit 1
    fi
