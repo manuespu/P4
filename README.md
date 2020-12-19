@@ -80,10 +80,13 @@ ejercicios indicados.
 
   - lp 2,3
   <img src="lp_2_3.png" width="320">
+
   - lpcc 2,3
   <img src="lpcc_2_3.png" width="320">
+
   - mfcc 2,3
   <img src="mfcc_2_3.png" width="320">
+  
   + Indique **todas** las órdenes necesarias para obtener las gráficas a partir de las señales 
     parametrizadas.
     
@@ -120,11 +123,13 @@ Complete el código necesario para entrenar modelos GMM.
 - Inserte una gráfica que muestre la función de densidad de probabilidad modelada por el GMM de un locutor
   para sus dos primeros coeficientes de MFCC.
          <img src="gmm1.png" width="320">
+
 - Inserte una gráfica que permita comparar los modelos y poblaciones de dos locutores distintos (la gŕafica
   de la página 20 del enunciado puede servirle de referencia del resultado deseado). Analice la capacidad
   del modelado GMM para diferenciar las señales de uno y otro.
         <img src="gmm2.png" width="320">
         <img src="gmm3.png" width="320">
+        
 ### Reconocimiento del locutor.
 
 Complete el código necesario para realizar reconociminto del locutor y optimice sus parámetros.
