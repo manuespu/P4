@@ -78,8 +78,11 @@ ejercicios indicados.
 - Inserte una imagen mostrando la dependencia entre los coeficientes 2 y 3 de las tres parametrizaciones
   para todas las señales de un locutor.
 
+  - lp 2,3
 <img src="lp_2_3.png">
+  - lpcc 2,3
 <img src="lpcc_2_3.png">
+  - mfcc 2,3
 <img src="mfcc_2_3.png">
 
   + Indique **todas** las órdenes necesarias para obtener las gráficas a partir de las señales 
@@ -105,7 +108,7 @@ La lpcc contiene más información
 
   |                        | LP   | LPCC | MFCC |
   |------------------------|:----:|:----:|:----:|
-  | &rho;<sub>x</sub>[2,3] |      |      |      |
+  | &rho;<sub>x</sub>[2,3] |-0.872284|0.184235|-0.198242|
   
   + Compare los resultados de <code>pearson</code> con los obtenidos gráficamente.
   
@@ -117,10 +120,14 @@ Complete el código necesario para entrenar modelos GMM.
 
 - Inserte una gráfica que muestre la función de densidad de probabilidad modelada por el GMM de un locutor
   para sus dos primeros coeficientes de MFCC.
+  <img src="gmm1.JPEG">
+ 
   
 - Inserte una gráfica que permita comparar los modelos y poblaciones de dos locutores distintos (la gŕafica
   de la página 20 del enunciado puede servirle de referencia del resultado deseado). Analice la capacidad
   del modelado GMM para diferenciar las señales de uno y otro.
+<img src="gmm2.JPEG">
+<img src="gmm3.JPEG">
 
 ### Reconocimiento del locutor.
 
@@ -128,7 +135,23 @@ Complete el código necesario para realizar reconociminto del locutor y optimice
 
 - Inserte una tabla con la tasa de error obtenida en el reconocimiento de los locutores de la base de datos
   SPEECON usando su mejor sistema de reconocimiento para los parámetros LP, LPCC y MFCC.
+  | Parametrización | nErrores | nTotal | Tasa Error |
+  |------------------------|:----:|:----:|:----:|
+  | LP | 84 | 785 | 10.7% |
+  | LPCC | 12 | 784 | 1.53% |
+  | MFCC | 6 | 749 | 0.80% |
 
+Valores óptimos encontrados y usados para la tabla:
+  LP: Orden LP=14, Ngaussianas=8
+  LPCC: Ncoeficientes=14, Orden LP=14, Ngaussianas=8
+  MFCC: Ncoeficientes=16, Nfiltros=20, Ngaussianas=20
+
+  Hemos decido además reducir el umbral de log. prob. a la mitad (-T 0.0005) y el Num. Iteraciones está a -N 40.  
+
+      Concluimos que nuestro mejor sistema corresponde con MFCC con 16 coeficientes MFCC, 20 filtros, gaussianas cada GMM y 100 gaussianas para gmmWorld. Obtenemos los siguientes resultados en clasificación al ejecutar:
+  
+      run_spkid mfcc train test classerr trainworld verify verifyerr
+  
 ### Verificación del locutor.
 
 Complete el código necesario para realizar verificación del locutor y optimice sus parámetros.
@@ -137,11 +160,30 @@ Complete el código necesario para realizar verificación del locutor y optimice
   de verificación de SPEECON. La tabla debe incluir el umbral óptimo, el número de falsas alarmas y de
   pérdidas, y el score obtenido usando la parametrización que mejor resultado le hubiera dado en la tarea
   de reconocimiento.
+
+  Con datos óptimos verificación:
+
+  |  Missed  | False Alarm   | Cost detection | Threshold |
+  |------------------------|:----:|:----:|:----:|
+  | 42/250 | 0/1000 | 16.8 | 0.326770288423101 |
+
+
+  Con datos óptimos reconocimiento:
+
+  |  Missed | False Alarma   | Cost detection | Threshold |
+  |------------------------|:----:|:----:|:----:|
+  | 93/250 | 0/1000 | 47.1 | 0.318673595056289 |
+
+   
  
 ### Test final
 
 - Adjunte, en el repositorio de la práctica, los ficheros `class_test.log` y `verif_test.log` 
   correspondientes a la evaluación *ciega* final.
+
+Ficheros generados y añadidos al repositorio usando:
+    FEAT=mfcc run_spkid finalclass finalverif
+
 
 ### Trabajo de ampliación.
 
