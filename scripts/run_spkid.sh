@@ -195,7 +195,7 @@ for cmd in $*; do
        compute_$FEAT $final $lists/final/verif.test
        gmm_verify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm -w $world $lists/gmm.list $lists/final/verif.test $lists/final/verif.test.candidates | tee $w/finalverif_${FEAT}_${name_exp}.log  || exit 1     
        perl -ane 'print "$F[0]\t$F[1]\t";
-        if ($F[2] > 0.541968410390996) {print "1\n"}
+        if ($F[2] > 0.326770288423101) {print "1\n"}
         else {print "0\n"}' tee $w/finalverif_mfcc_one.log | tee verif_test.log
 
    
