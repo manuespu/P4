@@ -148,9 +148,9 @@ Valores óptimos encontrados y usados para la tabla:
 
   Hemos decido además reducir el umbral de log. prob. a la mitad (-T 0.0005) y el Num. Iteraciones está a -N 40.  
 
-      Concluimos que nuestro mejor sistema corresponde con MFCC con 16 coeficientes MFCC, 20 filtros, gaussianas cada GMM y 100 gaussianas para gmmWorld. Obtenemos los siguientes resultados en clasificación al ejecutar:
+    Concluimos que nuestro mejor sistema corresponde con MFCC con 16 coeficientes MFCC, 20 filtros, gaussianas cada GMM y 100 gaussianas para gmmWorld. Obtenemos los siguientes resultados en clasificación al ejecutar:
   
-      run_spkid mfcc train test classerr trainworld verify verifyerr
+    run_spkid mfcc train test classerr trainworld verify verifyerr
   
 ### Verificación del locutor.
 
