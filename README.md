@@ -79,11 +79,11 @@ ejercicios indicados.
   para todas las señales de un locutor.
 
   - lp 2,3
-  <img src="lp_2_3.png" width="320" align="center">
+  <img src="lp_2_3.png" width="320">
   - lpcc 2,3
-  <img src="lpcc_2_3.png" width="320" align="center">
+  <img src="lpcc_2_3.png" width="320">
   - mfcc 2,3
-  <img src="mfcc_2_3.png" width="320" align="center">
+  <img src="mfcc_2_3.png" width="320">
   + Indique **todas** las órdenes necesarias para obtener las gráficas a partir de las señales 
     parametrizadas.
     
