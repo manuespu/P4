@@ -113,8 +113,12 @@ La lpcc contiene más información
   | &rho;<sub>x</sub>[2,3] |-0.872284|0.184235|-0.198242|
   
   + Compare los resultados de <code>pearson</code> con los obtenidos gráficamente.
+
+  Los resultados son consecuentes con las gráficas. Porque los coeficientes LPCC y MFCC tienen menos correlación conjunta, lo que se traduce y en una mayor dispersión de los puntos. Los coeficientes LPCC están más correlados y se aprecia con cierto grado de linealidad en la gráfica.
   
 - Según la teoría, ¿qué parámetros considera adecuados para el cálculo de los coeficientes LPCC y MFCC?
+El número de coeficientes LPCC debería estar entre 8 y 12. Y el número de coeficientes LPCC debería estar entre 14 y 18.
+
 
 ### Entrenamiento y visualización de los GMM.
 
