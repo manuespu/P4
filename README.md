@@ -203,7 +203,7 @@ Ficheros generados y añadidos al repositorio usando:
       - C.detect: 12.4 (Más bajo que 16.8 de mfcc)
 
 
-    - Tabla Resum Resultados con parámetros optimos:
+    - Tabla Resultados con parámetros óptimos:
 
 <img src="tabla_final.PNG">
 
