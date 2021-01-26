@@ -205,7 +205,7 @@ Ficheros generados y añadidos al repositorio usando:
 
     - Tabla Resum Resultados con parámetros optimos:
 
-	  <img src="tabla_final.png" width="320">
+<img src="tabla_final.PNG" width="320">
 
 								
 
