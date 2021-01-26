@@ -198,11 +198,11 @@ Ficheros generados y añadidos al repositorio usando:
 
 
     - Mejoras en lpcc:
-      - error_rate de 1.53% a 0.14%. Ahora es más bajo incluso que mfcc(0.54%)
+      - error_rate de 1.53% a 0.28%. Ahora es más bajo incluso que mfcc (0.54%)
       - THR: 0,152118729152205
-      - C,detect: 12.4 (Más bajo que 16.8 de mfcc)
+      - C.detect: 12.4 (Más bajo que 16.8 de mfcc)
 
-      
+
     - Tabla Resum Resultados con parámetros optimos:
 
 	  <img src="tabla_final.png" width="320">
