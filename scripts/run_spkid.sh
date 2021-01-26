@@ -130,7 +130,7 @@ for cmd in $*; do
        for dir in $db/BLOCK*/SES* ; do
            name=${dir/*\/}
            echo $name ----
-           gmm_train  -v 1 -T 0.0005 -N100 -m 30 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$name.gmm $lists/class/$name.train || exit 1
+           gmm_train  -v 1 -T 0.0005 -N200 -m 30 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$name.gmm $lists/class/$name.train || exit 1
            echo
        done
    elif [[ $cmd == test ]]; then
@@ -154,7 +154,7 @@ for cmd in $*; do
 	   # Implement 'trainworld' in order to get a Universal Background Model for speaker verification
 	   #
 	   # - The name of the world model will be used by gmm_verify in the 'verify' command below.
-       gmm_train  -v 1 -T 0.0005 -N100 -m 30 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$world.gmm $lists/verif/users_and_others.train || exit 1
+       gmm_train  -v 1 -T 0.0005 -N200 -m 30 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$world.gmm $lists/verif/users_and_others.train || exit 1
    elif [[ $cmd == verify ]]; then
        ## @file
 	   # \HECHO 
@@ -195,7 +195,7 @@ for cmd in $*; do
        compute_$FEAT $final $lists/final/verif.test
        gmm_verify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm -w $world $lists/gmm.list $lists/final/verif.test $lists/final/verif.test.candidates | tee $w/finalverif_${FEAT}_${name_exp}.log  || exit 1     
        perl -ane 'print "$F[0]\t$F[1]\t";
-        if ($F[2] > 0.326770288423101) {print "1\n"}
+        if ($F[2] > 0,152118729152205) {print "1\n"}
         else {print "0\n"}' tee $w/finalverif_mfcc_one.log | tee verif_test.log
 
    
